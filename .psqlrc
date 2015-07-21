@@ -1,0 +1,2 @@
+SELECT pg_catalog.pg_backend_pid() AS backend_pid \gset
+\set PROMPT1 '%m %:backend_pid: %/%R%# '
