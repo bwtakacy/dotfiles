@@ -1,0 +1,22 @@
+diff --git a/doc/src/sgml/libpq.sgml b/doc/src/sgml/libpq.sgml
+index 0ee018e..c54411c 100644
+--- a/doc/src/sgml/libpq.sgml
++++ b/doc/src/sgml/libpq.sgml
+@@ -966,6 +966,17 @@ postgresql://%2Fvar%2Flib%2Fpostgresql/dbname
+       </listitem>
+      </varlistentry>
+ 
++     <varlistentry id="libpq-connect-replication" xreflabel="replication">
++      <term><literal>replication</literal></term>
++      <listitem>
++      <para>
++       Connect with Streaming Replication Protocol (see <xref linkend="protocol-replication">).
++	   This allows the value to be either boolean or the string 'database'.
++	   The latter connects to a specific database given by <literal>dbName</>.
++      </para>
++      </listitem>
++     </varlistentry>
++
+      <varlistentry id="libpq-connect-user" xreflabel="user">
+       <term><literal>user</literal></term>
+       <listitem>
