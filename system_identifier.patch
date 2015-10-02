@@ -1,0 +1,87 @@
+diff --git a/backup.c b/backup.c
+index aa7c4f8..b6af0c7 100644
+--- a/backup.c
++++ b/backup.c
+@@ -19,6 +19,7 @@
+ #include <math.h>
+ 
+ #include "libpq/pqsignal.h"
++#include "catalog/pg_control.h"
+ #include "pgut/pgut-port.h"
+ 
+ #define TIMEOUT_ARCHIVE		10		/* wait 10 sec until WAL archive complete */
+@@ -841,6 +842,18 @@ do_backup(pgBackupOption bkupopt)
+ 	/* confirm data block size and xlog block size are compatible */
+ 	server_version = get_server_version();
+ 
++/*
++ * get system identifier of the current database.
++ */
++	uint64			result;
++    char        *buffer;
++    buffer = read_control_file();
++
++    if(buffer != NULL)
++        result = (uint64) ((ControlFileData *) buffer)->system_identifier;
++    pg_free(buffer);
++	elog(INFO, "System identifier: %ld", result);
++
+ 	/* setup cleanup callback function */
+ 	in_backup = true;
+ 
+diff --git a/init.c b/init.c
+index 089f9c7..bcc988e 100644
+--- a/init.c
++++ b/init.c
+@@ -9,6 +9,8 @@
+ 
+ #include "pg_rman.h"
+ 
++#include "catalog/pg_control.h"
++
+ #include <unistd.h>
+ #include <dirent.h>
+ 
+@@ -69,6 +71,30 @@ do_init(void)
+ 		parse_postgresql_conf(path, &log_directory, &archive_command);
+ 	}
+ 
++/*
++ * get system identifier of the current database.
++ */
++    uint64      result;
++    char        *buffer;
++    buffer = read_control_file();
++
++    if(buffer != NULL)
++        result = (uint64) ((ControlFileData *) buffer)->system_identifier;
++    pg_free(buffer);
++
++    /* register system identifier of target database. */
++	join_path_components(path, backup_path, SYSTEM_IDENTIFIER_FILE);
++	fp = fopen(path, "wt");
++	if (fp == NULL)
++	{
++		ereport(ERROR,
++			(errcode(ERROR_SYSTEM),
++			 errmsg("could not create pg_rman.ini: %s", strerror(errno))));
++	} else {
++    	fprintf(fp, "SYSTEM_IDENTIFIER='%lu'\n", result);
++	}
++	fclose(fp);
++
+ 	/* create pg_rman.ini */
+ 	join_path_components(path, backup_path, PG_RMAN_INI_FILE);
+ 	fp = fopen(path, "wt");
+diff --git a/pg_rman.h b/pg_rman.h
+index dcde893..f3402dc 100644
+--- a/pg_rman.h
++++ b/pg_rman.h
+@@ -33,6 +33,7 @@
+ #define TIMELINE_HISTORY_DIR		"timeline_history"
+ #define BACKUP_INI_FILE			"backup.ini"
+ #define PG_RMAN_INI_FILE		"pg_rman.ini"
++#define SYSTEM_IDENTIFIER_FILE  "system_identifier"
+ #define MKDIRS_SH_FILE			"mkdirs.sh"
+ #define DATABASE_FILE_LIST		"file_database.txt"
+ #define ARCLOG_FILE_LIST		"file_arclog.txt"
