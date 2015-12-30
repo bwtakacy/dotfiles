@@ -28,7 +28,7 @@ highlight CursorLine term=none cterm=none ctermfg=none ctermbg=darkgray
 "highlight Normal ctermbg=none ctermfg=black
 "highlight StatusLine term=none cterm=none ctermfg=grey ctermbg=black
 "highlight CursorLine term=none cterm=none ctermfg=darkgray ctermbg=none
-set cursorline  " カーソルラインの強調表示を有効化
+"set cursorline  " カーソルラインの強調表示を有効化
 
 " 行番号を表示
 set number
@@ -38,7 +38,7 @@ set tabstop=4
 
 " 自動インデント
 set autoindent
-"set expandtab
+set expandtab
 set shiftwidth=4
 
 " ステータスラインを表示
@@ -93,5 +93,5 @@ map <C-n> :cn<CR>
 map <C-p> :cp<CR>
 
 " スペルチェック
-set spell
+"set spell
 "set spelllang+=cjk
