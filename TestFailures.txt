@@ -38,3 +38,61 @@ java.lang.AssertionError: expected:<2> but was:<1>
     at org.junit.Assert.assertEquals(Assert.java:555)
     at org.junit.Assert.assertEquals(Assert.java:542)
     at org.apache.hadoop.hdfs.server.blockmanagement.TestPendingInvalidateBlock.testPendingDeletion(TestPendingInvalidateBlock.java:92)
+    
+Running org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestSchedulingPolicy
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.195 sec <<< FAILURE! - in org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestSchedulingPolicy
+testIsApplicableTo(org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestSchedulingPolicy)  Time elapsed: 1.041 sec  <<< ERROR!
+java.lang.Exception: test timed out after 1000 milliseconds
+    at java.lang.ClassLoader.defineClass1(Native Method)
+    at java.lang.ClassLoader.defineClass(ClassLoader.java:760)
+    at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+    at java.net.URLClassLoader.defineClass(URLClassLoader.java:467)
+    at java.net.URLClassLoader.access$100(URLClassLoader.java:73)
+    at java.net.URLClassLoader$1.run(URLClassLoader.java:368)
+    at java.net.URLClassLoader$1.run(URLClassLoader.java:362)
+    at java.security.AccessController.doPrivileged(Native Method)
+    at java.net.URLClassLoader.findClass(URLClassLoader.java:361)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+    at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
+    at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+    at org.mockito.internal.MockitoCore.<init>(MockitoCore.java:40)
+    at org.mockito.Mockito.<clinit>(Mockito.java:674)
+    at org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.TestSchedulingPolicy.testIsApplicableTo(TestSchedulingPolicy.java:116)
+    
+Running org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestNodeLabelContainerAllocation
+Tests run: 17, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 324.251 sec <<< FAILURE! - in org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestNodeLabelContainerAllocation
+testQueueUsedCapacitiesUpdate(org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestNodeLabelContainerAllocation)  Time elapsed: 12.668 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<0.3> but was:<0.6>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:519)
+    at org.junit.Assert.assertEquals(Assert.java:609)
+    at org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestNodeLabelContainerAllocation.checkQueueUsedCapacity(TestNodeLabelContainerAllocation.java:1240)
+    at org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestNodeLabelContainerAllocation.testQueueUsedCapacitiesUpdate(TestNodeLabelContainerAllocation.java:1459)
+
+Running org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestCapacitySchedulerPreemption
+Tests run: 6, Failures: 1, Errors: 0, Skipped: 1, Time elapsed: 65.778 sec <<< FAILURE! - in org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestCapacitySchedulerPreemption
+testPreemptionPolicyShouldRespectAlreadyMarkedKillableContainers(org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestCapacitySchedulerPreemption)  Time elapsed: 14.888 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<0> but was:<1>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:555)
+    at org.junit.Assert.assertEquals(Assert.java:542)
+    at org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.TestCapacitySchedulerPreemption.testPreemptionPolicyShouldRespectAlreadyMarkedKillableContainers(TestCapacitySchedulerPreemption.java:457)
+
+Running org.apache.hadoop.yarn.server.resourcemanager.ahs.TestRMApplicationHistoryWriter
+Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 256.99 sec <<< FAILURE! - in org.apache.hadoop.yarn.server.resourcemanager.ahs.TestRMApplicationHistoryWriter
+testRMWritingMassiveHistoryForCapacitySche(org.apache.hadoop.yarn.server.resourcemanager.ahs.TestRMApplicationHistoryWriter)  Time elapsed: 78.274 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<10000> but was:<5439>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:555)
+    at org.junit.Assert.assertEquals(Assert.java:542)
+    at org.apache.hadoop.yarn.server.resourcemanager.ahs.TestRMApplicationHistoryWriter.testRMWritingMassiveHistory(TestRMApplicationHistoryWriter.java:470)
+    at org.apache.hadoop.yarn.server.resourcemanager.ahs.TestRMApplicationHistoryWriter.testRMWritingMassiveHistory(TestRMApplicationHistoryWriter.java:431)
+    at org.apache.hadoop.yarn.server.resourcemanager.ahs.TestRMApplicationHistoryWriter.testRMWritingMassiveHistoryForCapacitySche(TestRMApplicationHistoryWriter.java:383)
+
+
+
