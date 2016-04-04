@@ -1,0 +1,40 @@
+Running org.apache.hadoop.hdfs.TestDFSShell
+Tests run: 42, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 57.688 sec <<< FAILURE! - in org.apache.hadoop.hdfs.TestDFSShell
+testCopyFromLocalWithPermissionDenied(org.apache.hadoop.hdfs.TestDFSShell)  Time elapsed: 1.159 sec  <<< FAILURE!
+java.lang.AssertionError:  outputs Permission denied error message
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.assertTrue(Assert.java:41)
+    at org.apache.hadoop.hdfs.TestDFSShell.testCopyFromLocalWithPermissionDenied(TestDFSShell.java:2398)
+
+
+Running org.apache.hadoop.hdfs.TestDFSClientSocketSize
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 9.294 sec <<< FAILURE! - in org.apache.hadoop.hdfs.TestDFSClientSocketSize
+testDefaultSendBufferSize(org.apache.hadoop.hdfs.TestDFSClientSocketSize)  Time elapsed: 1.373 sec  <<< FAILURE!
+java.lang.AssertionError: Send buffer size should be the default value. expected:<131072> but was:<124928>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:555)
+    at org.apache.hadoop.hdfs.TestDFSClientSocketSize.testDefaultSendBufferSize(TestDFSClientSocketSize.java:53)
+
+Running org.apache.hadoop.hdfs.server.namenode.TestEditLog
+Tests run: 48, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 178.881 sec <<< FAILURE! - in org.apache.hadoop.hdfs.server.namenode.TestEditLog
+testBatchedSyncWithClosedLogs[1](org.apache.hadoop.hdfs.server.namenode.TestEditLog)  Time elapsed: 0.334 sec  <<< FAILURE!
+java.lang.AssertionError: logging edit without syncing should do not affect txid expected:<1> but was:<2>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:555)
+    at org.apache.hadoop.hdfs.server.namenode.TestEditLog.testBatchedSyncWithClosedLogs(TestEditLog.java:594)
+
+
+Running org.apache.hadoop.hdfs.server.blockmanagement.TestPendingInvalidateBlock
+Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 31.034 sec <<< FAILURE! - in org.apache.hadoop.hdfs.server.blockmanagement.TestPendingInvalidateBlock
+testPendingDeletion(org.apache.hadoop.hdfs.server.blockmanagement.TestPendingInvalidateBlock)  Time elapsed: 10.092 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<2> but was:<1>
+    at org.junit.Assert.fail(Assert.java:88)
+    at org.junit.Assert.failNotEquals(Assert.java:743)
+    at org.junit.Assert.assertEquals(Assert.java:118)
+    at org.junit.Assert.assertEquals(Assert.java:555)
+    at org.junit.Assert.assertEquals(Assert.java:542)
+    at org.apache.hadoop.hdfs.server.blockmanagement.TestPendingInvalidateBlock.testPendingDeletion(TestPendingInvalidateBlock.java:92)
