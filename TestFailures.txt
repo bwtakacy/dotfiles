@@ -5,6 +5,8 @@ java.lang.AssertionError:  outputs Permission denied error message
     at org.junit.Assert.fail(Assert.java:88)
     at org.junit.Assert.assertTrue(Assert.java:41)
     at org.apache.hadoop.hdfs.TestDFSShell.testCopyFromLocalWithPermissionDenied(TestDFSShell.java:2398)
+    
+→ Permission Deniedというエラーメッセージで比較しているので、LANG=Cでテストを実行しないとこける。
 
 
 Running org.apache.hadoop.hdfs.TestDFSClientSocketSize
