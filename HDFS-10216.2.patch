@@ -1,0 +1,77 @@
+diff --git a/hadoop-tools/hadoop-distcp/src/main/java/org/apache/hadoop/tools/SimpleCopyListing.java b/hadoop-tools/hadoop-distcp/src/main/java/org/apache/hadoop/tools/SimpleCopyListing.java
+index d2598a4..cabb7e3 100644
+--- a/hadoop-tools/hadoop-distcp/src/main/java/org/apache/hadoop/tools/SimpleCopyListing.java
++++ b/hadoop-tools/hadoop-distcp/src/main/java/org/apache/hadoop/tools/SimpleCopyListing.java
+@@ -191,7 +191,7 @@ private Path getPathWithSchemeAndAuthority(Path path) throws IOException {
+       authority = fs.getUri().getAuthority();
+     }
+ 
+-    return new Path(scheme, authority, path.toUri().getPath());
++    return new Path(scheme, authority, makeQualified(path).toUri().getPath());
+   }
+ 
+   /**
+diff --git a/hadoop-tools/hadoop-distcp/src/test/java/org/apache/hadoop/tools/TestDistCpSync.java b/hadoop-tools/hadoop-distcp/src/test/java/org/apache/hadoop/tools/TestDistCpSync.java
+index 04de8e4..93c4dbb 100644
+--- a/hadoop-tools/hadoop-distcp/src/test/java/org/apache/hadoop/tools/TestDistCpSync.java
++++ b/hadoop-tools/hadoop-distcp/src/test/java/org/apache/hadoop/tools/TestDistCpSync.java
+@@ -32,6 +32,7 @@
+ import org.apache.hadoop.mapreduce.Mapper;
+ import org.apache.hadoop.security.Credentials;
+ import org.apache.hadoop.tools.mapred.CopyMapper;
++import org.apache.hadoop.util.ToolRunner;
+ import org.junit.After;
+ import org.junit.Assert;
+ import org.junit.Before;
+@@ -674,4 +675,51 @@ public void testSync8() throws Exception {
+ 
+     testAndVerify(numCreatedModified);
+   }
++
++  private void initData9(Path dir) throws Exception {
++    final Path foo = new Path(dir, "foo");
++    final Path foo_f1 = new Path(foo, "f1");
++
++    DFSTestUtil.createFile(dfs, foo_f1, BLOCK_SIZE, DATA_NUM, 0L);
++  }
++
++  private void changeData9(Path dir) throws Exception {
++    final Path foo = new Path(dir, "foo");
++    final Path foo_f3 = new Path(dir, "f3");
++
++    DFSTestUtil.createFile(dfs, foo_f3, BLOCK_SIZE, DATA_NUM, 0L);
++  }
++
++  /**
++   * Test a case where rename a dir, then create a new dir with the same name
++   * and sub dir.
++   */
++  @Test
++  public void testSync9() throws Exception {
++    String source9String = "/user/" + System.getProperty("user.name") + "/source";
++    Path source9 = new Path(source9String);
++    Path target9 = new Path("/tmp/target");
++    initData9(source9);
++    initData9(target9);
++    System.out.println(dfs.getFileStatus(source9).toString());
++    dfs.allowSnapshot(source9);
++    dfs.allowSnapshot(target9);
++    dfs.createSnapshot(source9, "s1");
++    dfs.createSnapshot(target9, "s1");
++    changeData9(source9);
++    dfs.createSnapshot(source9, "s2");
++
++    //conf = new Configuration(); 
++    String[] args = new String[]{"-update","-diff", "s1", "s2", "source", "/tmp/target"};
++    DistCp distCp = new DistCp(conf, OptionsParser.parse(args));
++    try {
++      distCp.createAndSubmitJob();
++      //int res = ToolRunner.run(conf, new DistCp(), args);
++      //if (res < 0 ) {
++      //  Assert.fail("DistCp fails by some error.");
++      //}
++    } catch (IllegalArgumentException e) {
++      Assert.fail(e.getMessage());
++    }
++  }
+ }
