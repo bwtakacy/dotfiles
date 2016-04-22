@@ -35,3 +35,6 @@ java.net.ConnectException: 接続を拒否されました
         at org.apache.hadoop.crypto.key.KeyShell.main(KeyShell.java:515)
 
 Kerberos認証の設定をしていないのにKerberos認証を行っている？
+
+## 原因
+KMSのLISTENポートが16000から9600に変更されたため。
