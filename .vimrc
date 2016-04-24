@@ -96,4 +96,6 @@ map <C-m> :cclose<CR>
 
 " スペルチェック
 "set spell
+"hi clear SpellBad
+"hi SpellBad cterm=underline,bold
 "set spelllang+=cjk
