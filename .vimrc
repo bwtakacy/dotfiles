@@ -17,6 +17,9 @@ set whichwrap=b,s,[,],<,>,~
 " インクリメンタル検索を有効化
 set incsearch
 
+" 検索ヒットをハイライト
+set hlsearch
+
 " 補完時の一覧表示機能有効化
 set wildmenu wildmode=list:full
 
@@ -99,3 +102,15 @@ map <C-m> :cclose<CR>
 "hi clear SpellBad
 "hi SpellBad cterm=underline,bold
 "set spelllang+=cjk
+
+if has("autocmd")
+  augroup redhat
+    " In text files, always limit the width of text to 78 characters
+    autocmd BufRead *.txt set tw=78
+    " When editing a file, always jump to the last cursor position
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+  augroup END
+endif
