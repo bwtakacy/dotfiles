@@ -1,3 +1,28 @@
+" Plugin設定
+" vundle.vimを使う
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+
+" golang用
+Plugin 'fatih/vim-go'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+autocmd FileType go :match goErr /\<err\>/
+
+" Markdown用
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+" 一般用
+Plugin 'bronson/vim-trailing-whitespace'
+"Plugin 'Yggdroot/indentLine'
+
+call vundle#end()
+
 " [Backspace] で既存の文字を削除できるように設定
 "  start - 既存の文字を削除できるように設定
 "  eol - 行頭で[Backspace]を使用した場合上の行と連結
@@ -51,14 +76,37 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%0
 "閉じ括弧が入力されたとき、対応する括弧を表示する
 set showmatch
 
+"Vimの「%」を拡張する
+source $VIMRUNTIME/macros/matchit.vim
+
 "検索時に大文字を含んでいたら大/小を区別
 set smartcase
 
 "タブ文字、行末など不可視文字を表示する
 "set list
 
+"新しいウィンドウを下に開く
+set splitbelow
+
+"新しいウィンドウを右に開く
+set splitright
+
 "入力モード時、ステータスラインのカラーを変更
 let g:hi_insert = 'hi StatusLine gui=None guifg=Black guibg=Yellow cterm=None ctermfg=Black ctermbg=Yellow'
+
+"ハイライトをEsc2回で消去
+nmap <Esc><Esc> :nohlsearch<CR><Esc>
+
+"拡張子に合わせていい感じに
+filetype on
+filetype indent on
+filetype plugin on
+
+" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
+nnoremap j gj
+nnoremap k gk
+nnoremap <down> gj
+nnoremap <up> gk
 
 if has('syntax')
   augroup InsertHook
